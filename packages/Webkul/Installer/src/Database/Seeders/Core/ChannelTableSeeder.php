@@ -4,6 +4,7 @@ namespace Webkul\Installer\Database\Seeders\Core;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class ChannelTableSeeder extends Seeder
 {
@@ -15,6 +16,10 @@ class ChannelTableSeeder extends Seeder
      */
     public function run($parameters = [])
     {
+        if (DB::getDriverName() === 'sqlite') {
+            Schema::disableForeignKeyConstraints();
+        }
+
         DB::table('channels')->delete();
 
         DB::table('channel_translations')->delete();
@@ -84,5 +89,9 @@ class ChannelTableSeeder extends Seeder
             'channel_id' => 1,
             'inventory_source_id' => 1,
         ]);
+
+        if (DB::getDriverName() === 'sqlite') {
+            Schema::enableForeignKeyConstraints();
+        }
     }
 }

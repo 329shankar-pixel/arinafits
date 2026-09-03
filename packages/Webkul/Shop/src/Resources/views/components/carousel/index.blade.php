@@ -27,8 +27,9 @@
     @endpush
 @endif
 
+<div class="px-[60px] pt-4 max-1180:px-8 max-sm:px-4 max-sm:pt-3">
 <v-carousel :images="{{ json_encode($carouselImages) }}">
-    <div class="overflow-hidden">
+    <div class="overflow-hidden rounded-[24px] shadow-[0_24px_60px_-24px_rgba(166,62,88,0.45)] ring-1 ring-black/5 max-sm:rounded-2xl">
         @if ($firstImage)
             {{--
                 Server-rendered first slide so the browser can discover and
@@ -45,38 +46,40 @@
                 src="{{ $firstImage }}"
                 srcset="{{ $firstImage }} 1920w, {{ str_replace('storage', 'cache/large', $firstImage) }} 1280w, {{ str_replace('storage', 'cache/medium', $firstImage) }} 1024w, {{ str_replace('storage', 'cache/small', $firstImage) }} 768w"
                 sizes="100vw"
-                class="aspect-[2.743/1] max-h-screen w-screen select-none object-cover"
-                style="width:100vw;aspect-ratio:2.743/1;max-height:100vh;object-fit:cover;display:block"
+                class="aspect-[21/9] max-h-screen w-full select-none object-cover"
+                style="width:100%;aspect-ratio:21/9;max-height:100vh;object-fit:cover;display:block"
                 alt="{{ $firstImageTitle ?? trans('shop::app.home.index.image-carousel') }}"
                 fetchpriority="high"
                 decoding="sync"
             >
         @else
-            <div class="shimmer aspect-[2.743/1] max-h-screen w-screen"></div>
+            <div class="shimmer aspect-[21/9] max-h-screen w-full"></div>
         @endif
     </div>
 </v-carousel>
+</div>
 
 @pushOnce('scripts')
     <script
         type="text/x-template"
         id="v-carousel-template"
     >
-        <div class="relative m-auto flex w-full overflow-hidden">
+        <div class="relative m-auto flex w-full overflow-hidden rounded-[24px] shadow-[0_24px_60px_-24px_rgba(166,62,88,0.45)] ring-1 ring-black/5 max-sm:rounded-2xl">
             <!-- Slider -->
             <div
                 class="inline-flex translate-x-0 cursor-pointer transition-transform duration-700 ease-out will-change-transform"
                 ref="sliderContainer"
             >
                 <div
-                    class="max-h-screen w-screen bg-cover bg-no-repeat"
+                    class="relative max-h-screen w-full bg-cover bg-no-repeat"
                     v-for="(image, index) in images"
                     :key="index"
                     @click="visitLink(image)"
                     ref="slide"
                 >
                     <x-shop::media.images.lazy
-                        class="aspect-[2.743/1] max-h-full w-full max-w-full select-none transition-transform duration-300 ease-in-out will-change-transform"
+                        class="aspect-[21/9] max-h-full w-full max-w-full select-none transition-transform duration-300 ease-in-out will-change-transform"
+                        ::class="{ 'hero-ken-burns': index === Math.abs(currentIndex) }"
                         ::lazy="index === 0 ? false : true"
                         ::src="image.image"
                         ::srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 768w'"
@@ -86,12 +89,23 @@
                         ::fetchpriority="index === 0 ? 'high' : 'low'"
                         ::decoding="index === 0 ? 'sync' : 'async'"
                     />
+
+                    <div
+                        class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-950/70 via-zinc-950/25 to-transparent px-8 pb-10 pt-20 max-sm:px-5 max-sm:pb-8 max-sm:pt-14"
+                        v-if="image.title"
+                    >
+                        <p
+                            class="font-dmserif max-w-2xl text-4xl text-white drop-shadow-lg line-clamp-2 max-md:text-3xl max-sm:text-2xl"
+                            v-text="image.title"
+                        >
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <!-- Navigation -->
             <span
-                class="icon-arrow-left absolute left-2.5 top-1/2 -mt-[22px] hidden w-auto rounded-full bg-black/80 p-3 text-2xl font-bold text-white opacity-30 transition-all md:inline-block"
+                class="icon-arrow-left absolute left-4 top-1/2 -mt-[22px] hidden w-auto rounded-full bg-white/85 p-3 text-2xl font-bold text-arina-deep opacity-70 shadow-lg backdrop-blur-md transition-all hover:opacity-100 md:inline-block"
                 :class="{
                     'cursor-not-allowed': direction == 'ltr' && currentIndex == 0,
                     'cursor-pointer hover:opacity-100': direction == 'ltr' ? currentIndex > 0 : currentIndex <= 0
@@ -105,7 +119,7 @@
             </span>
 
             <span
-                class="icon-arrow-right absolute right-2.5 top-1/2 -mt-[22px] hidden w-auto rounded-full bg-black/80 p-3 text-2xl font-bold text-white opacity-30 transition-all md:inline-block"
+                class="icon-arrow-right absolute right-4 top-1/2 -mt-[22px] hidden w-auto rounded-full bg-white/85 p-3 text-2xl font-bold text-arina-deep opacity-70 shadow-lg backdrop-blur-md transition-all hover:opacity-100 md:inline-block"
                 :class="{
                     'cursor-not-allowed': direction == 'rtl' && currentIndex == 0,
                     'cursor-pointer hover:opacity-100': direction == 'rtl' ? currentIndex < 0 : currentIndex >= 0
@@ -119,13 +133,12 @@
             </span>
 
             <!-- Pagination -->
-            <div class="absolute bottom-5 left-0 flex w-full justify-center max-md:bottom-3.5 max-sm:bottom-2.5">
+            <div class="absolute bottom-5 left-0 flex w-full justify-center gap-2 max-md:bottom-3.5 max-sm:bottom-2.5">
                 <div
                     v-for="(image, index) in images"
                     :key="index"
-                    class="sm:p-2.5 mx-1 h-3 w-3 cursor-pointer rounded-full max-md:h-2 max-md:w-2 max-sm:h-1.5 max-sm:w-1.5
-                    p-2 focus:outline-none"
-                    :class="{ 'bg-navyBlue': index === Math.abs(currentIndex), 'opacity-30 bg-gray-500': index !== Math.abs(currentIndex) }"
+                    class="h-2 cursor-pointer rounded-full shadow ring-1 ring-black/10 transition-all duration-300 focus:outline-none"
+                    :class="{ 'w-8 bg-white': index === Math.abs(currentIndex), 'w-2 bg-white/50 hover:bg-white/80': index !== Math.abs(currentIndex) }"
                     role="button"
                     tabindex="0"
                     :aria-label="'Go to slide ' + (index + 1)"
@@ -294,7 +307,9 @@
                 },
 
                 setPositionByIndex() {
-                    this.currentTranslate = this.currentIndex * -window.innerWidth;
+                    const slideWidth = this.slides.length ? this.slides[0].clientWidth : window.innerWidth;
+
+                    this.currentTranslate = this.currentIndex * -slideWidth;
 
                     this.prevTranslate = this.currentTranslate;
 

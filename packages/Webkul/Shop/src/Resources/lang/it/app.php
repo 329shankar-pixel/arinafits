@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Elemento aggiunto con successo alla lista di confronto.',
                 'add-to-wishlist' => 'Aggiungi alla lista dei desideri',
                 'already-in-compare' => 'L\'elemento è già presente nella lista di confronto.',
+                'free-shipping' => 'Spedizione gratuita',
                 'new' => 'Nuovo',
+                'only-left' => 'Solo :count rimasti',
+                'out-of-stock' => 'Esaurito',
                 'review-description' => 'Sii il primo a recensire questo prodotto',
                 'sale' => 'Sconto',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Scarica l\'app',
+                'subtitle' => 'Offerte esclusive app, checkout più veloce e tracking ordini.',
+                'title' => 'Arina in tasca',
+            ],
             'categories-carousel' => 'Carosello delle categorie',
             'image-carousel' => 'Carosello delle immagini',
             'offer' => 'Ottieni fino al 40% di sconto sul tuo primo ordine, ACQUISTA ORA',
             'product-carousel' => 'Carosello dei prodotti',
             'resend-verify-email' => 'Reinvia l\'email di verifica',
+            'shop-now' => 'Acquista ora',
             'verify-email' => 'Verifica il tuo account email',
         ],
 

@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct access to sensitive files
+    RewriteRule ^\.env(\..*)?$ - [F,L]
+    RewriteRule ^(artisan|composer\.(json|lock)|package(-lock)?\.json|vite\.config\.js|phpunit\.xml|pint\.json)$ - [F,L]
+
+    # Route all traffic into public/ (cPanel public_html points here, not public/)
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+</IfModule>
+
+# Deny web access to sensitive files even if mod_rewrite is off
+<FilesMatch "^(\.env(\..*)?|artisan|composer\.(json|lock)|package(-lock)?\.json)$">
+    Require all denied
+</FilesMatch>

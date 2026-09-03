@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Item berhasil ditambahkan ke daftar perbandingan.',
                 'add-to-wishlist' => 'Tambah ke Wishlist',
                 'already-in-compare' => 'Item sudah ada dalam daftar perbandingan.',
+                'free-shipping' => 'Gratis ongkir',
                 'new' => 'Baru',
+                'only-left' => 'Tersisa :count',
+                'out-of-stock' => 'Stok habis',
                 'review-description' => 'Jadilah yang pertama mengulas produk ini.',
                 'sale' => 'Diskon',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Unduh aplikasi',
+                'subtitle' => 'Penawaran eksklusif aplikasi, checkout lebih cepat, dan lacak pesanan.',
+                'title' => 'Arina di sakumu',
+            ],
             'categories-carousel' => 'Carousel Kategori',
             'image-carousel' => 'Carousel Gambar',
             'offer' => 'Dapatkan DISKON HINGGA 40% untuk pesanan pertama Anda BELI SEKARANG',
             'product-carousel' => 'Carousel Produk',
             'resend-verify-email' => 'Kirim Ulang Email Verifikasi',
+            'shop-now' => 'Belanja Sekarang',
             'verify-email' => 'Verifikasi akun email Anda',
         ],
 

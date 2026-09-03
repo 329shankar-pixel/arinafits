@@ -29,11 +29,19 @@ module.exports = {
 
         extend: {
             colors: {
-                navyBlue: "#060C3B",
-                lightOrange: "#F6F2EB",
+                navyBlue: "#A63E58",
+                lightOrange: "#FDF2F5",
                 darkGreen: '#40994A',
                 darkBlue: '#0044F2',
-                darkPink: '#F85156',
+                darkPink: '#C2526E',
+                arina: {
+                    DEFAULT: '#C2526E',
+                    dark: '#A63E58',
+                    deep: '#7C2D43',
+                    light: '#FBE9EE',
+                    cream: '#FDF4F6',
+                    border: '#F0CFD8',
+                },
             },
 
             fontFamily: {

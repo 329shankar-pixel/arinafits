@@ -12,12 +12,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = DB::getTablePrefix();
+        Schema::table('product_price_indices', function (Blueprint $table) {
+            try {
+                $table->dropForeign(['product_id']);
+            } catch (\Throwable $e) {
+            }
 
-        Schema::table('product_price_indices', function (Blueprint $table) use ($tablePrefix) {
-            $table->dropForeign($tablePrefix.'product_price_indices_product_id_foreign');
-            $table->dropForeign($tablePrefix.'product_price_indices_customer_group_id_foreign');
-            $table->dropUnique($tablePrefix.'product_price_indices_product_id_customer_group_id_unique');
+            try {
+                $table->dropForeign(['customer_group_id']);
+            } catch (\Throwable $e) {
+            }
+
+            try {
+                $table->dropUnique(['product_id', 'customer_group_id']);
+            } catch (\Throwable $e) {
+            }
 
             $table->integer('channel_id')->unsigned()->default(1)->after('customer_group_id');
 

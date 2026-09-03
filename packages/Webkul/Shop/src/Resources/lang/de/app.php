@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Artikel erfolgreich zur Vergleichsliste hinzugefügt.',
                 'add-to-wishlist' => 'Zur Wunschliste hinzufügen',
                 'already-in-compare' => 'Artikel ist bereits zur Vergleichsliste hinzugefügt.',
+                'free-shipping' => 'Kostenloser Versand',
                 'new' => 'Neu',
+                'only-left' => 'Nur noch :count übrig',
+                'out-of-stock' => 'Ausverkauft',
                 'review-description' => 'Seien Sie der Erste, der dieses Produkt bewertet',
                 'sale' => 'Verkauf',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'App holen',
+                'subtitle' => 'Exklusive App-Angebote, schnellerer Checkout und Sendungsverfolgung.',
+                'title' => 'Arina für unterwegs',
+            ],
             'categories-carousel' => 'Kategorien-Karussell',
             'image-carousel' => 'Bilder-Karussell',
             'offer' => 'Erhalten Sie BIS ZU 40% RABATT auf Ihre erste Bestellung, JETZT einkaufen',
             'product-carousel' => 'Produkt-Karussell',
             'resend-verify-email' => 'Bestätigungs-E-Mail erneut senden',
+            'shop-now' => 'Jetzt shoppen',
             'verify-email' => 'Bestätigen Sie Ihr E-Mail-Konto',
         ],
 

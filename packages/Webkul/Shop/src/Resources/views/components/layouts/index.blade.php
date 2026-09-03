@@ -141,6 +141,9 @@
             @if ($hasFooter)
                 <x-shop::layouts.footer />
             @endif
+
+            <!-- Mobile Bottom Navigation -->
+            <x-shop::layouts.bottom-nav />
         </div>
 
         {!! view_render_event('bagisto.shop.layout.body.after') !!}

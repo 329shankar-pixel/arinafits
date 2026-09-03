@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Przedmiot został pomyślnie dodany do listy porównań.',
                 'add-to-wishlist' => 'Dodaj do listy życzeń',
                 'already-in-compare' => 'Przedmiot jest już dodany do listy porównań.',
+                'free-shipping' => 'Darmowa wysyłka',
                 'new' => 'Nowy',
+                'only-left' => 'Zostało tylko :count',
+                'out-of-stock' => 'Wyprzedane',
                 'review-description' => 'Bądź pierwszym, który oceni ten produkt',
                 'sale' => 'Wyprzedaż',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Pobierz aplikację',
+                'subtitle' => 'Ekskluzywne oferty w aplikacji, szybsza płatność i śledzenie zamówień.',
+                'title' => 'Arina w kieszeni',
+            ],
             'categories-carousel' => 'Karuzela kategorii',
             'image-carousel' => 'Karuzela obrazów',
             'offer' => 'Otrzymaj DO 40% RABATU na swoje pierwsze zamówienie, ZAKUP TERAZ',
             'product-carousel' => 'Karuzela produktów',
             'resend-verify-email' => 'Wyślij ponownie e-mail weryfikacyjny',
+            'shop-now' => 'Kup teraz',
             'verify-email' => 'Zweryfikuj swoje konto e-mail',
         ],
 

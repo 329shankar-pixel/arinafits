@@ -1,109 +1,87 @@
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.before') !!}
 
-<div class="flex min-h-[78px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] max-1180:px-8">
-    <!--
-        This section will provide categories for the first, second, and third levels. If
-        additional levels are required, users can customize them according to their needs.
-    -->
-    <!-- Left Nagivation Section -->
-    <div class="flex items-center gap-x-10 max-[1180px]:gap-x-5">
-        {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.before') !!}
+<div class="shop-main-bar w-full border border-b border-l-0 border-r-0 border-t-0 px-[60px] max-1180:px-8">
+    <!-- Row 1 : logo, search, account actions -->
+    <div class="shop-main-row flex min-h-[76px] items-center gap-x-8 py-2.5 max-[1180px]:gap-x-5">
+        <!-- Left : logo -->
+        <div class="flex shrink-0 items-center">
+            {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.before') !!}
 
-        <a
-            href="{{ route('shop.home.index') }}"
-            aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')"
-        >
-            <img
-                src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
-                width="131"
-                height="29"
-                alt="{{ core()->getCurrentChannel()->logo_alt ?: config('app.name') }}"
+            <a
+                href="{{ route('shop.home.index') }}"
+                aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')"
             >
-        </a>
-
-        {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.after') !!}
-
-        {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}
-
-        <v-desktop-category>
-            <div class="flex items-center gap-5">
-                <span
-                    class="w-20 h-6 rounded shimmer"
-                    role="presentation"
-                ></span>
-
-                <span
-                    class="w-20 h-6 rounded shimmer"
-                    role="presentation"
-                ></span>
-
-                <span
-                    class="w-20 h-6 rounded shimmer"
-                    role="presentation"
-                ></span>
-            </div>
-        </v-desktop-category>
-
-        {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.after') !!}
-    </div>
-
-    <!-- Right Nagivation Section -->
-    <div class="flex items-center gap-x-9 max-[1100px]:gap-x-6 max-lg:gap-x-8">
-
-        {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.before') !!}
-
-        <!-- Search Bar Container -->
-        <div class="relative w-full">
-            <form
-                action="{{ route('shop.search.index') }}"
-                class="flex max-w-[445px] items-center"
-                role="search"
-                toolname="search_products"
-                tooldescription="{{ trans('shop::app.components.layouts.webmcp.search-products') }}"
-                toolautosubmit
-            >
-                <label
-                    for="organic-search"
-                    class="sr-only"
+                <img
+                    src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
+                    class="h-12 w-auto object-contain"
+                    width="48"
+                    height="48"
+                    alt="{{ core()->getCurrentChannel()->logo_alt ?: config('app.name') }}"
                 >
-                    @lang('shop::app.components.layouts.header.desktop.bottom.search')
-                </label>
+            </a>
 
-                <div class="icon-search pointer-events-none absolute top-2.5 flex items-center text-xl ltr:left-3 rtl:right-3"></div>
-
-                <input
-                    type="text"
-                    name="query"
-                    value="{{ request('query') }}"
-                    toolparamdescription="{{ trans('shop::app.components.layouts.webmcp.search-products-query') }}"
-                    class="block w-full py-3 text-xs font-medium text-gray-900 transition-all border border-transparent rounded-lg bg-zinc-100 px-11 hover:border-gray-400 focus:border-gray-400"
-                    minlength="{{ core()->getConfigData('catalog.products.search.min_query_length') }}"
-                    maxlength="{{ core()->getConfigData('catalog.products.search.max_query_length') }}"
-                    placeholder="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')"
-                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')"
-                    aria-required="true"
-                    pattern="[^\\]+"
-                    required
-                >
-
-                <button
-                    type="submit"
-                    class="hidden"
-                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.submit')"
-                >
-                </button>
-
-                @if (core()->getConfigData('catalog.products.settings.image_search'))
-                    @include('shop::search.images.index')
-                @endif
-            </form>
+            {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.after') !!}
         </div>
 
-        {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.after') !!}
+        <!-- Center : search -->
+        <div class="min-w-0 flex-1">
+            {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.before') !!}
 
-        <!-- Right Navigation Links -->
-        <div class="mt-1.5 flex gap-x-8 max-[1100px]:gap-x-6 max-lg:gap-x-8">
+            <!-- Search Bar Container -->
+            <div class="relative mx-auto w-full max-w-[640px]">
+                <form
+                    action="{{ route('shop.search.index') }}"
+                    class="relative flex items-center"
+                    role="search"
+                    toolname="search_products"
+                    tooldescription="{{ trans('shop::app.components.layouts.webmcp.search-products') }}"
+                    toolautosubmit
+                >
+                    <label
+                        for="organic-search"
+                        class="sr-only"
+                    >
+                        @lang('shop::app.components.layouts.header.desktop.bottom.search')
+                    </label>
 
+                    <div class="icon-search pointer-events-none absolute top-2.5 flex items-center text-xl ltr:left-3 rtl:right-3"></div>
+
+                    <input
+                        id="shop-search-input"
+                        type="text"
+                        name="query"
+                        value="{{ request('query') }}"
+                        toolparamdescription="{{ trans('shop::app.components.layouts.webmcp.search-products-query') }}"
+                        class="block w-full py-3 text-sm font-medium text-gray-900 transition-all border-2 border-transparent rounded-full bg-zinc-100 px-11 hover:border-zinc-300 focus:border-arina focus:bg-white focus:ring-2 focus:ring-arina/20"
+                        minlength="{{ core()->getConfigData('catalog.products.search.min_query_length') }}"
+                        maxlength="{{ core()->getConfigData('catalog.products.search.max_query_length') }}"
+                        placeholder="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')"
+                        aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')"
+                        aria-required="true"
+                        pattern="[^\\]+"
+                        required
+                    >
+
+                    <kbd class="pointer-events-none absolute hidden items-center rounded-md border border-gray-200 bg-white px-1.5 py-0.5 text-[11px] font-semibold text-zinc-400 ltr:right-3 rtl:left-3 md:flex">⌘K</kbd>
+
+                    <button
+                        type="submit"
+                        class="hidden"
+                        aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.submit')"
+                    >
+                    </button>
+
+                    @if (core()->getConfigData('catalog.products.settings.image_search'))
+                        @include('shop::search.images.index')
+                    @endif
+                </form>
+            </div>
+
+            {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.after') !!}
+        </div>
+
+        <!-- Right : actions -->
+        <div class="flex shrink-0 items-center gap-x-7 max-[1100px]:gap-x-5">
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.compare.before') !!}
 
             <!-- Compare -->
@@ -261,6 +239,35 @@
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.profile.after') !!}
         </div>
     </div>
+
+    <!-- Row 2 : category strip -->
+    {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}
+
+    <v-desktop-category>
+        <div class="flex h-11 items-center gap-2 border-t border-zinc-100">
+            <span
+                class="h-6 w-24 rounded shimmer"
+                role="presentation"
+            ></span>
+
+            <span
+                class="h-6 w-20 rounded shimmer"
+                role="presentation"
+            ></span>
+
+            <span
+                class="h-6 w-20 rounded shimmer"
+                role="presentation"
+            ></span>
+
+            <span
+                class="h-6 w-24 rounded shimmer"
+                role="presentation"
+            ></span>
+        </div>
+    </v-desktop-category>
+
+    {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.after') !!}
 </div>
 
 @pushOnce('scripts')
@@ -270,259 +277,203 @@
     >
         <!-- Loading State -->
         <div
-            class="flex items-center gap-5"
+            class="flex h-11 items-center gap-2 border-t border-zinc-100"
             v-if="isLoading"
         >
             <span
-                class="w-20 h-6 rounded shimmer"
+                class="h-6 w-24 rounded shimmer"
                 role="presentation"
             ></span>
 
             <span
-                class="w-20 h-6 rounded shimmer"
+                class="h-6 w-20 rounded shimmer"
                 role="presentation"
             ></span>
 
             <span
-                class="w-20 h-6 rounded shimmer"
+                class="h-6 w-20 rounded shimmer"
+                role="presentation"
+            ></span>
+
+            <span
+                class="h-6 w-24 rounded shimmer"
                 role="presentation"
             ></span>
         </div>
 
-        <!-- Default category layout -->
+        <!-- Category strip -->
         <div
-            class="flex items-center"
-            v-else-if="'{{ core()->getConfigData('general.design.categories.category_view') }}' !== 'sidebar'"
+            class="border-t border-zinc-100"
+            v-else
         >
-            <div
-                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
-                v-for="category in categories"
-            >
-                <span>
+            <div class="relative flex h-11 items-stretch">
+                <!-- "All" button opening the category sidebar -->
+                <button
+                    type="button"
+                    class="flex shrink-0 items-center gap-2 border-b-2 border-transparent px-4 text-sm font-semibold uppercase transition-colors hover:border-navyBlue hover:text-navyBlue"
+                    @click="toggleCategoryDrawer"
+                    aria-haspopup="dialog"
+                >
+                    <span class="icon-hamburger text-xl"></span>
+
+                    @lang('shop::app.components.layouts.header.desktop.bottom.all')
+                </button>
+
+                <span class="my-2.5 w-px shrink-0 bg-zinc-200"></span>
+
+                <!-- Top level categories with mega dropdowns -->
+                <div
+                    class="group/level relative flex items-stretch"
+                    v-for="category in categories"
+                    :key="category.id"
+                >
                     <a
                         :href="category.url"
-                        class="inline-block px-5 uppercase"
+                        class="flex items-center whitespace-nowrap border-b-2 border-transparent px-4 text-[13px] font-medium uppercase tracking-wide transition-colors group-hover/level:border-navyBlue group-hover/level:text-navyBlue max-[1180px]:px-3"
                     >
                         @{{ category.name }}
                     </a>
-                </span>
 
-                <div
-                    class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
-                    data-mega-menu-dropdown
-                    v-if="category.children && category.children.length"
-                >
-                    <div class="flex justify-between gap-x-[70px]">
-                        <div
-                            class="grid w-full min-w-max max-w-[150px] flex-auto grid-cols-[1fr] content-start gap-5"
-                            v-for="pairCategoryChildren in pairCategoryChildren(category)"
-                        >
-                            <template v-for="secondLevelCategory in pairCategoryChildren">
-                                <p class="font-medium text-navyBlue">
-                                    <a :href="secondLevelCategory.url">
-                                        @{{ secondLevelCategory.name }}
-                                    </a>
-                                </p>
-
-                                <ul
-                                    class="grid grid-cols-[1fr] gap-3"
-                                    v-if="secondLevelCategory.children && secondLevelCategory.children.length"
-                                >
-                                    <li
-                                        class="text-sm font-medium text-zinc-500"
-                                        v-for="thirdLevelCategory in secondLevelCategory.children"
-                                    >
-                                        <a :href="thirdLevelCategory.url">
-                                            @{{ thirdLevelCategory.name }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </template>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar category layout -->
-        <div v-else>
-            <!-- Categories Navigation -->
-            <div class="flex items-center">
-                <!-- "All" button for opening the category drawer -->
-                <div
-                    class="flex h-[77px] cursor-pointer items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
-                    @click="toggleCategoryDrawer"
-                >
-                    <span class="flex items-center gap-1 px-5 uppercase">
-                        <span class="text-xl icon-hamburger"></span>
-
-                        @lang('shop::app.components.layouts.header.desktop.bottom.all')
-                    </span>
-                </div>
-
-                <!-- Show only first 4 categories in main navigation -->
-                <div
-                    class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
-                    v-for="category in categories.slice(0, 4)"
-                >
-                    <span>
-                        <a
-                            :href="category.url"
-                            class="inline-block px-5 uppercase"
-                        >
-                            @{{ category.name }}
-                        </a>
-                    </span>
-
-                    <!-- Dropdown for each category -->
                     <div
-                        class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9 flex justify-between gap-x-[70px]"
+                        class="pointer-events-none absolute top-full z-30 max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto rounded-b-2xl border border-[#F3F3F3] bg-white p-8 opacity-0 shadow-[0_24px_50px_-12px_rgba(0,0,0,.25)] transition duration-300 ease-out group-hover/level:pointer-events-auto group-hover/level:translate-y-0 group-hover/level:opacity-100 group-hover/level:duration-200 group-hover/level:ease-in ltr:left-0 rtl:right-0"
                         data-mega-menu-dropdown
                         v-if="category.children && category.children.length"
                     >
-                        <div
-                            class="grid w-full min-w-max max-w-[150px] flex-auto grid-cols-[1fr] content-start gap-5"
-                            v-for="pairCategoryChildren in pairCategoryChildren(category)"
-                        >
-                            <template v-for="secondLevelCategory in pairCategoryChildren">
-                                <p class="font-medium text-navyBlue">
-                                    <a :href="secondLevelCategory.url">
-                                        @{{ secondLevelCategory.name }}
-                                    </a>
-                                </p>
-
-                                <ul
-                                    class="grid grid-cols-[1fr] gap-3"
-                                    v-if="secondLevelCategory.children && secondLevelCategory.children.length"
-                                >
-                                    <li
-                                        class="text-sm font-medium text-zinc-500"
-                                        v-for="thirdLevelCategory in secondLevelCategory.children"
-                                    >
-                                        <a :href="thirdLevelCategory.url">
-                                            @{{ thirdLevelCategory.name }}
+                        <div class="flex justify-between gap-x-[70px]">
+                            <div
+                                class="grid w-full min-w-max max-w-[170px] flex-auto grid-cols-[1fr] content-start gap-5"
+                                v-for="pairCategoryChildren in pairCategoryChildren(category)"
+                            >
+                                <template v-for="secondLevelCategory in pairCategoryChildren">
+                                    <p class="font-semibold text-navyBlue">
+                                        <a :href="secondLevelCategory.url">
+                                            @{{ secondLevelCategory.name }}
                                         </a>
-                                    </li>
-                                </ul>
-                            </template>
+                                    </p>
+
+                                    <ul
+                                        class="grid grid-cols-[1fr] gap-2.5"
+                                        v-if="secondLevelCategory.children && secondLevelCategory.children.length"
+                                    >
+                                        <li
+                                            class="text-sm font-medium text-zinc-500 transition-colors hover:text-navyBlue"
+                                            v-for="thirdLevelCategory in secondLevelCategory.children"
+                                        >
+                                            <a :href="thirdLevelCategory.url">
+                                                @{{ thirdLevelCategory.name }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </template>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Bagisto Drawer Integration -->
-            <x-shop::drawer
-                position="left"
-                width="400px"
-                ::is-active="isDrawerActive"
-                @toggle="onDrawerToggle"
-                @close="onDrawerClose"
+            <!-- Category dropdown panel : drops downward from the strip -->
+            <div
+                v-if="isSidebarOpen"
+                class="absolute top-full z-40 max-h-[70vh] w-[330px] overflow-auto rounded-b-2xl border border-t-0 border-zinc-200 bg-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] ltr:left-0 rtl:right-0"
             >
-                <x-slot:toggle></x-slot>
+                <div class="flex items-center justify-between border-b border-zinc-100 px-6 py-3">
+                    <p class="font-dmserif text-lg">
+                        @lang('shop::app.components.layouts.header.desktop.bottom.categories')
+                    </p>
 
-                <x-slot:header class="border-b border-gray-200">
-                    <div class="flex items-center justify-between w-full">
-                        <p class="text-xl font-medium">
-                            @lang('shop::app.components.layouts.header.desktop.bottom.categories')
-                        </p>
-                    </div>
-                </x-slot>
+                    <button
+                        type="button"
+                        class="icon-cancel cursor-pointer text-xl text-zinc-400 transition-colors hover:text-navyBlue"
+                        @click="closeSidebar"
+                        :aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.categories')"
+                    ></button>
+                </div>
 
-                <x-slot:content class="!px-0">
-                    <!-- Wrapper with transition effects -->
-                    <div class="relative h-full overflow-hidden">
-                        <!-- Sliding container -->
-                        <div
-                            class="flex h-full transition-transform duration-300"
-                            :class="{
-                                'ltr:translate-x-0 rtl:translate-x-0': currentViewLevel !== 'third',
-                                'ltr:-translate-x-full rtl:translate-x-full': currentViewLevel === 'third'
-                            }"
+                <nav
+                    class="py-2"
+                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.categories')"
+                >
+                    <div
+                        v-for="category in categories"
+                        :key="category.id"
+                        @mouseenter="openFlyout(category, $event)"
+                        @mouseleave="scheduleCloseFlyout"
+                    >
+                        <a
+                            :href="category.url"
+                            class="group/row flex items-center gap-3.5 px-6 py-3 transition-colors hover:bg-arina-light"
+                            @focus="openFlyout(category, $event)"
                         >
-                            <!-- First level view -->
-                            <div class="h-[calc(100vh-74px)] w-full flex-shrink-0 overflow-auto">
-                                <div class="py-4">
-                                    <div
-                                        v-for="category in categories"
-                                        :key="category.id"
-                                        :class="{'mb-2': category.children && category.children.length}"
-                                    >
-                                        <div class="flex items-center justify-between px-6 py-2 transition-colors duration-200 cursor-pointer hover:bg-gray-100">
-                                            <a
-                                                :href="category.url"
-                                                class="text-base font-medium text-black"
-                                            >
-                                                @{{ category.name }}
-                                            </a>
-                                        </div>
+                            <span
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arina-light font-dmserif text-lg text-arina-deep transition-colors group-hover/row:bg-navyBlue group-hover/row:text-white"
+                                v-text="category.name.charAt(0)"
+                            ></span>
 
-                                        <!-- Second Level Categories -->
-                                        <div v-if="category.children && category.children.length" >
-                                            <div
-                                                v-for="secondLevelCategory in category.children"
-                                                :key="secondLevelCategory.id"
-                                            >
-                                                <div
-                                                    class="flex items-center justify-between px-6 py-2 transition-colors duration-200 cursor-pointer hover:bg-gray-100"
-                                                    @click="showThirdLevel(secondLevelCategory, category, $event)"
-                                                >
-                                                    <a
-                                                        :href="secondLevelCategory.url"
-                                                        class="text-sm font-normal"
-                                                    >
-                                                        @{{ secondLevelCategory.name }}
-                                                    </a>
+                            <span
+                                class="min-w-0 flex-1 truncate text-[15px] font-medium transition-colors group-hover/row:text-navyBlue"
+                                v-text="category.name"
+                            ></span>
 
-                                                    <span
-                                                        v-if="secondLevelCategory.children && secondLevelCategory.children.length"
-                                                        class="icon-arrow-right rtl:icon-arrow-left"
-                                                    ></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <span
+                                class="icon-arrow-right rtl:icon-arrow-left shrink-0 text-lg text-zinc-300 transition-all group-hover/row:translate-x-0.5 group-hover/row:text-navyBlue"
+                                v-if="category.children && category.children.length"
+                            ></span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
 
-                            <!-- Third level view -->
-                            <div
-                                class="flex-shrink-0 w-full h-full"
-                                v-if="currentViewLevel === 'third'"
+            <teleport to="body">
+                <div
+                    v-if="flyout"
+                    ref="flyoutPanel"
+                    class="fixed z-[70] max-h-[80vh] w-[520px] max-w-[calc(100vw-400px)] overflow-auto rounded-2xl border border-arina-border bg-white p-7 shadow-[0_30px_60px_-15px_rgba(166,62,88,0.35)]"
+                    :style="flyout.style"
+                    @mouseenter="cancelCloseFlyout"
+                    @mouseleave="scheduleCloseFlyout"
+                >
+                    <a
+                        :href="flyout.category.url"
+                        class="mb-5 inline-flex items-center gap-1.5 font-dmserif text-xl text-navyBlue hover:underline"
+                    >
+                        @{{ flyout.category.name }}
+
+                        <span class="icon-arrow-right rtl:icon-arrow-left text-lg"></span>
+                    </a>
+
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-6">
+                        <div v-for="child in flyout.category.children" :key="child.id">
+                            <a
+                                :href="child.url"
+                                class="font-semibold text-navyBlue hover:underline"
                             >
-                                <div class="px-6 py-4 border-b border-gray-200">
-                                    <button
-                                        @click="goBackToMainView"
-                                        class="flex items-center justify-center gap-2 focus:outline-none"
-                                        aria-label="Go back"
-                                    >
-                                        <span class="text-lg icon-arrow-left rtl:icon-arrow-right"></span>
+                                @{{ child.name }}
+                            </a>
 
-                                        <p class="text-base font-medium text-black">
-                                            @lang('shop::app.components.layouts.header.desktop.bottom.back-button')
-                                        </p>
-                                    </button>
-                                </div>
-
-                                <!-- Third Level Content -->
-                                <div class="py-4">
-                                    <div
-                                        v-for="thirdLevelCategory in currentSecondLevelCategory?.children"
-                                        :key="thirdLevelCategory.id"
-                                        class="mb-2"
+                            <ul
+                                class="mt-2 grid gap-1.5"
+                                v-if="child.children && child.children.length"
+                            >
+                                <li v-for="grandchild in child.children" :key="grandchild.id">
+                                    <a
+                                        :href="grandchild.url"
+                                        class="text-sm text-zinc-500 transition-colors hover:text-navyBlue"
                                     >
-                                        <a
-                                            :href="thirdLevelCategory.url"
-                                            class="block px-6 py-2 text-sm transition-colors duration-200 hover:bg-gray-100"
-                                        >
-                                            @{{ thirdLevelCategory.name }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                                        @{{ grandchild.name }}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </x-slot>
-            </x-shop::drawer>
+
+                    <a
+                        :href="flyout.category.url"
+                        class="mt-6 inline-block text-sm font-semibold text-navyBlue hover:underline"
+                    >
+                        @lang('shop::app.components.products.carousel.view-all') @{{ flyout.category.name }}
+                    </a>
+                </div>
+            </teleport>
         </div>
     </script>
 
@@ -534,10 +485,9 @@
                 return {
                     isLoading: true,
                     categories: [],
-                    isDrawerActive: false,
-                    currentViewLevel: 'main',
-                    currentSecondLevelCategory: null,
-                    currentParentCategory: null
+                    isSidebarOpen: false,
+                    flyout: null,
+                    flyoutCloseTimer: null
                 }
             },
 
@@ -545,24 +495,34 @@
                 this.initCategories();
 
                 window.addEventListener('resize', this.positionMegaMenus);
+
+                window.addEventListener('scroll', this.closeFlyout, { passive: true });
+
+                window.addEventListener('keydown', this.handleFlyoutKeydown);
+
+                document.addEventListener('click', this.handleOutsideClick);
             },
 
             beforeUnmount() {
                 window.removeEventListener('resize', this.positionMegaMenus);
+
+                window.removeEventListener('scroll', this.closeFlyout);
+
+                window.removeEventListener('keydown', this.handleFlyoutKeydown);
+
+                document.removeEventListener('click', this.handleOutsideClick);
             },
 
             methods: {
                 initCategories() {
                     try {
-                        const stored = localStorage.getItem('categories');
+                        const stored = localStorage.getItem('arina_categories_v1');
 
                         if (stored) {
                             this.categories = JSON.parse(stored);
                             this.isLoading = false;
 
                             this.$nextTick(this.positionMegaMenus);
-
-                            return;
                         }
 
                     } catch (e) {}
@@ -575,7 +535,12 @@
                         .then(response => {
                             this.isLoading = false;
                             this.categories = response.data.data;
-                            localStorage.setItem('categories', JSON.stringify(this.categories));
+
+                            try {
+                                localStorage.setItem('arina_categories_v1', JSON.stringify(this.categories));
+
+                                localStorage.removeItem('categories');
+                            } catch (e) {}
 
                             this.$nextTick(this.positionMegaMenus);
                         })
@@ -596,35 +561,96 @@
                 },
 
                 toggleCategoryDrawer() {
-                    this.isDrawerActive = !this.isDrawerActive;
-                    if (this.isDrawerActive) {
-                        this.currentViewLevel = 'main';
+                    this.isSidebarOpen = ! this.isSidebarOpen;
+
+                    if (! this.isSidebarOpen) {
+                        this.closeFlyout();
                     }
                 },
 
-                onDrawerToggle(event) {
-                    this.isDrawerActive = event.isActive;
+                closeSidebar() {
+                    this.isSidebarOpen = false;
+
+                    this.closeFlyout();
                 },
 
-                onDrawerClose(event) {
-                    this.isDrawerActive = false;
+                handleOutsideClick(event) {
+                    if (
+                        this.isSidebarOpen
+                        && this.$el
+                        && ! this.$el.contains(event.target)
+                    ) {
+                        this.closeSidebar();
+                    }
                 },
 
-                showThirdLevel(secondLevelCategory, parentCategory, event) {
-                    if (secondLevelCategory.children && secondLevelCategory.children.length) {
-                        this.currentSecondLevelCategory = secondLevelCategory;
-                        this.currentParentCategory = parentCategory;
-                        this.currentViewLevel = 'third';
+                openFlyout(category, event) {
+                    if (! category.children || ! category.children.length) {
+                        this.closeFlyout();
 
-                        if (event) {
-                            event.preventDefault();
-                            event.stopPropagation();
+                        return;
+                    }
+
+                    this.cancelCloseFlyout();
+
+                    const anchor = event.currentTarget.getBoundingClientRect();
+
+                    const isRtl = document.dir === 'rtl';
+
+                    const panelWidth = 520;
+
+                    const edge = isRtl
+                        ? Math.max(12, window.innerWidth - anchor.left + 12)
+                        : anchor.right + 12;
+
+                    this.flyout = {
+                        category,
+                        style: {
+                            top: Math.max(12, Math.min(anchor.top, window.innerHeight - 320)) + 'px',
+                            left: isRtl ? 'auto' : Math.min(edge, window.innerWidth - panelWidth - 12) + 'px',
+                            right: isRtl ? Math.min(edge, window.innerWidth - panelWidth - 12) + 'px' : 'auto'
                         }
+                    };
+
+                    this.$nextTick(() => {
+                        if (! this.flyout || ! this.$refs.flyoutPanel) {
+                            return;
+                        }
+
+                        const height = this.$refs.flyoutPanel.offsetHeight;
+
+                        const top = Math.max(12, Math.min(anchor.top, window.innerHeight - height - 12));
+
+                        this.flyout.style.top = top + 'px';
+                    });
+                },
+
+                scheduleCloseFlyout() {
+                    this.cancelCloseFlyout();
+
+                    this.flyoutCloseTimer = setTimeout(() => {
+                        this.closeFlyout();
+                    }, 140);
+                },
+
+                cancelCloseFlyout() {
+                    if (this.flyoutCloseTimer) {
+                        clearTimeout(this.flyoutCloseTimer);
+
+                        this.flyoutCloseTimer = null;
                     }
                 },
 
-                goBackToMainView() {
-                    this.currentViewLevel = 'main';
+                closeFlyout() {
+                    this.cancelCloseFlyout();
+
+                    this.flyout = null;
+                },
+
+                handleFlyoutKeydown(event) {
+                    if (event.key === 'Escape') {
+                        this.closeSidebar();
+                    }
                 },
 
                 positionMegaMenus() {
@@ -653,4 +679,3 @@
         });
     </script>
 @endPushOnce
-{!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.after') !!}

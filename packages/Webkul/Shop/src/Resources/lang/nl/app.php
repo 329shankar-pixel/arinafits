@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Item succesvol toegevoegd aan vergelijkingslijst.',
                 'add-to-wishlist' => 'Toevoegen aan verlanglijst',
                 'already-in-compare' => 'Dit item is al toegevoegd aan vergelijkingslijst.',
+                'free-shipping' => 'Gratis verzending',
                 'new' => 'Nieuw',
+                'only-left' => 'Nog :count over',
+                'out-of-stock' => 'Uitverkocht',
                 'review-description' => 'Wees de eerste om dit product te beoordelen',
                 'sale' => 'Uitverkoop',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Download de app',
+                'subtitle' => 'Exclusieve app-aanbiedingen, sneller afrekenen en ordertracking.',
+                'title' => 'Arina in je zak',
+            ],
             'categories-carousel' => 'Categorieën Carrousel',
             'image-carousel' => 'Afbeeldingen Carrousel',
             'offer' => 'Krijg TOT 40% KORTING op je eerste bestelling, WINKEL NU',
             'product-carousel' => 'Producten Carrousel',
             'resend-verify-email' => 'Verificatie-e-mail opnieuw verzenden',
+            'shop-now' => 'Shop nu',
             'verify-email' => 'Verifieer je e-mailaccount',
         ],
 

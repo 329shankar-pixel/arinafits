@@ -16,7 +16,7 @@ img.lazy {
 
 @layer components {
     ::selection {
-        background-color: rgba(6, 12, 59, .2);
+        background-color: rgba(166, 62, 88, .18);
     }
 
     input {
@@ -435,7 +435,7 @@ img.lazy {
     }
 
     .secondary-button {
-        @apply flex gap-x-1.5 items-center place-content-center font-medium rounded-xl bg-white text-navyBlue border border-navyBlue px-8 py-4 max-w-max cursor-pointer transition-all hover:bg-[#050e3a0d];
+        @apply flex gap-x-1.5 items-center place-content-center font-medium rounded-xl bg-white text-navyBlue border border-navyBlue px-8 py-4 max-w-max cursor-pointer transition-all hover:bg-[#a63e580d];
     }
 
     .shimmer {
@@ -492,7 +492,7 @@ img.lazy {
     .glow-404 {
         background-clip: text;
         -webkit-background-clip: text;
-        color: #060C3B;
+        color: #7C2D43;
     }
 
     .glow-shadow-404 {
@@ -524,5 +524,59 @@ img.lazy {
 
     .skip-to-main-content-link:focus {
         @apply ltr:left-1/2 rtl:right-1/2 ltr:translate-x-1/2 rtl:translate-x-[-50%] opacity-100;
+    }
+
+    :focus-visible {
+        outline: 2px solid #A63E58;
+        outline-offset: 2px;
+    }
+
+    .shop-topbar {
+        max-height: 60px;
+        overflow: hidden;
+        transition: max-height .3s ease, opacity .3s ease;
+    }
+
+    body.shop-header-scrolled .shop-topbar {
+        max-height: 0;
+        opacity: 0;
+    }
+
+    .shop-main-bar {
+        transition: min-height .3s ease;
+    }
+
+    .shop-main-bar .shop-main-row {
+        transition: min-height .3s ease, padding .3s ease;
+    }
+
+    body.shop-header-scrolled .shop-main-bar .shop-main-row {
+        min-height: 60px;
+        padding-top: 0.375rem;
+        padding-bottom: 0.375rem;
+    }
+
+    body.shop-header-scrolled .shop-header {
+        box-shadow: 0 8px 30px -12px rgba(166, 62, 88, .25);
+    }
+
+    @keyframes hero-ken-burns {
+        0% {
+            transform: scale(1);
+        }
+
+        100% {
+            transform: scale(1.08);
+        }
+    }
+
+    .hero-ken-burns {
+        animation: hero-ken-burns 6.5s ease-out forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hero-ken-burns {
+            animation: none;
+        }
     }
 }

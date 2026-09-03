@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Article ajouté avec succès à la liste de comparaison.',
                 'add-to-wishlist' => 'Ajouter à la liste de souhaits',
                 'already-in-compare' => 'L\'article est déjà ajouté à la liste de comparaison.',
+                'free-shipping' => 'Livraison gratuite',
                 'new' => 'Nouveau',
+                'only-left' => 'Plus que :count',
+                'out-of-stock' => 'Rupture de stock',
                 'review-description' => 'Soyez le premier à évaluer ce produit',
                 'sale' => 'En solde',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Télécharger l\'app',
+                'subtitle' => 'Exclusivités app, paiement plus rapide et suivi de commande.',
+                'title' => 'Arina dans votre poche',
+            ],
             'categories-carousel' => 'Carrousel de catégories',
             'image-carousel' => 'Carrousel d\'images',
             'offer' => 'Obtenez JUSQU\'À 40% DE RÉDUCTION sur votre 1ère commande, ACHETEZ MAINTENANT',
             'product-carousel' => 'Carrousel de produits',
             'resend-verify-email' => 'Renvoyer l\'e-mail de vérification',
+            'shop-now' => 'Acheter',
             'verify-email' => 'Vérifiez votre compte e-mail',
         ],
 

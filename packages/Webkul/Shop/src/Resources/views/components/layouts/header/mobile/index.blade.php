@@ -27,11 +27,11 @@
                 aria-label="@lang('shop::app.components.layouts.header.mobile.bagisto')"
             >
                 <img
-                    class="block"
+                    class="block h-10 w-auto object-contain"
                     src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                     alt="{{ core()->getCurrentChannel()->logo_alt ?: config('app.name') }}"
-                    width="131"
-                    height="29"
+                    width="40"
+                    height="40"
                 >
             </a>
 
@@ -217,7 +217,7 @@
 
             <input
                 type="text"
-                class="block w-full rounded-xl border border-['#E3E3E3'] px-11 py-3.5 text-sm font-medium text-gray-900 max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
+                class="block w-full rounded-xl border border-['#E3E3E3'] px-11 py-3.5 text-sm font-medium text-gray-900 transition-all focus:border-arina focus:ring-2 focus:ring-arina/20 max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
                 name="query"
                 value="{{ request('query') }}"
                 placeholder="@lang('shop::app.components.layouts.header.mobile.search-text')"
@@ -417,8 +417,13 @@
                             :key="category.id"
                             :class="{'mb-2': category.children && category.children.length}"
                         >
-                        <div class="flex items-center justify-between py-2 transition-colors duration-200 cursor-pointer">
-                            <a :href="category.url" class="text-base font-medium text-black">
+                        <div class="flex items-center gap-3 py-2 transition-colors duration-200 cursor-pointer">
+                            <span
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arina-light font-dmserif text-lg text-arina-deep"
+                                v-text="category.name.charAt(0)"
+                            ></span>
+
+                            <a :href="category.url" class="min-w-0 flex-1 truncate text-base font-medium text-black">
                                 @{{ category.name }}
                             </a>
                         </div>
@@ -512,12 +517,10 @@
             methods: {
                 initCategories() {
                     try {
-                        const stored = localStorage.getItem('categories');
+                        const stored = localStorage.getItem('arina_categories_v1');
 
                         if (stored) {
                             this.categories = JSON.parse(stored);
-                            this.isLoading = false;
-                            return;
                         }
 
                     } catch (e) {}
@@ -528,7 +531,12 @@
                     this.$axios.get("{{ route('shop.api.categories.tree') }}")
                         .then(response => {
                             this.categories = response.data.data;
-                            localStorage.setItem('categories', JSON.stringify(this.categories));
+
+                            try {
+                                localStorage.setItem('arina_categories_v1', JSON.stringify(this.categories));
+
+                                localStorage.removeItem('categories');
+                            } catch (e) {}
                         })
                         .catch(error => {
                             console.log(error);

@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'הפריט נוסף לרשימת ההשוואה בהצלחה.',
                 'add-to-wishlist' => 'הוסף לרשימת המשאלות',
                 'already-in-compare' => 'הפריט כבר נמצא ברשימת ההשוואה.',
+                'free-shipping' => 'משלוח חינם',
                 'new' => 'חדש',
+                'only-left' => 'נותרו רק :count',
+                'out-of-stock' => 'אזל מהמלאי',
                 'review-description' => 'הפוך לראשון שמבקר במוצר זה',
                 'sale' => 'מבצע',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'הורד את האפליקציה',
+                'subtitle' => 'הצעות בלעדיות לאפליקציה, תשלום מהיר ומעקב הזמנות.',
+                'title' => 'ארינה בכיס שלך',
+            ],
             'categories-carousel' => 'קרוסלת קטגוריות',
             'image-carousel' => 'קרוסלת תמונות',
             'offer' => 'קבל עד 40% הנחה על ההזמנה הראשונה שלך, קנה עכשיו',
             'product-carousel' => 'קרוסלת מוצרים',
             'resend-verify-email' => 'שלח מחדש את מייל האימות',
+            'shop-now' => 'קנה עכשיו',
             'verify-email' => 'אמת את חשבון האימייל שלך',
         ],
 

@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Item adicionado com sucesso à lista de comparação.',
                 'add-to-wishlist' => 'Adicionar à Lista de Desejos',
                 'already-in-compare' => 'O item já está na lista de comparação.',
+                'free-shipping' => 'Frete grátis',
                 'new' => 'Novo',
+                'only-left' => 'Restam :count',
+                'out-of-stock' => 'Esgotado',
                 'review-description' => 'Seja o primeiro a avaliar este produto',
                 'sale' => 'Venda',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Baixar o app',
+                'subtitle' => 'Ofertas exclusivas do app, checkout mais rápido e rastreio de pedidos.',
+                'title' => 'Arina no seu bolso',
+            ],
             'categories-carousel' => 'Carrossel de Categorias',
             'image-carousel' => 'Carrossel de Imagens',
             'offer' => 'Ganhe ATÉ 40% DE DESCONTO no seu 1º pedido, COMPRE AGORA',
             'product-carousel' => 'Carrossel de Produtos',
             'resend-verify-email' => 'Reenviar e-mail de verificação',
+            'shop-now' => 'Comprar agora',
             'verify-email' => 'Verifique sua conta de e-mail',
         ],
 

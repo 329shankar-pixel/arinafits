@@ -28,6 +28,14 @@ module.exports = {
                 darkGreen: '#40994A',
                 darkBlue: '#0044F2',
                 darkPink: '#F85156',
+                arina: {
+                    DEFAULT: '#C2526E',
+                    dark: '#A63E58',
+                    deep: '#7C2D43',
+                    light: '#FBE9EE',
+                    cream: '#FDF4F6',
+                    border: '#F0CFD8',
+                },
             },
 
             fontFamily: {

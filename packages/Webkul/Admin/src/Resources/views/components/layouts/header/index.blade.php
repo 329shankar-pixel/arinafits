@@ -2,7 +2,7 @@
     $admin = auth()->guard('admin')->user();
 @endphp
 
-<header class="sticky top-0 z-[10001] flex items-center justify-between border-b bg-white px-2 py-2 dark:border-gray-800 dark:bg-gray-900 sm:px-4 sm:py-2.5">
+<header class="sticky top-0 z-[10001] flex items-center justify-between border-b bg-white/85 px-2 py-2 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/85 sm:px-4 sm:py-2.5">
     <div class="flex items-center gap-1 sm:gap-1.5">
         <!-- Hamburger Menu -->
         <i
@@ -88,7 +88,7 @@
                         />
                     </button>
                 @else
-                    <button class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-blue-400 text-xs font-semibold leading-6 text-white transition-all hover:bg-blue-500 focus:bg-blue-500 sm:h-9 sm:w-9 sm:text-sm">
+                    <button class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-arina text-xs font-semibold leading-6 text-white transition-all hover:bg-arina-dark focus:bg-arina-dark sm:h-9 sm:w-9 sm:text-sm">
                         {{ substr($admin->name, 0, 1) }}
                     </button>
                 @endif
@@ -174,7 +174,7 @@
                     <div class="group/item relative">
                         <a
                             href="{{ $menuItem->getUrl() }}"
-                            class="flex items-center gap-2 p-1.5 cursor-pointer hover:rounded-lg {{ $menuItem->isActive() == 'active' ? 'bg-blue-600 rounded-lg' : ' hover:bg-gray-100 hover:dark:bg-gray-950' }} peer sm:gap-2.5"
+                            class="flex items-center gap-2 p-1.5 cursor-pointer hover:rounded-lg {{ $menuItem->isActive() == 'active' ? 'bg-arina-dark rounded-lg shadow-sm' : ' hover:bg-gray-100 hover:dark:bg-gray-950' }} peer sm:gap-2.5"
                         >
                             <span class="{{ $menuItem->getIcon() }} text-xl {{ $menuItem->isActive() ? 'text-white' : ''}} sm:text-2xl"></span>
 
@@ -188,7 +188,7 @@
                                 @foreach ($menuItem->getChildren() as $subMenuItem)
                                     <a
                                         href="{{ $subMenuItem->getUrl() }}"
-                                        class="{{ $subMenuItem->haveChildren() ? 'font-medium' : '' }} text-xs text-{{ $subMenuItem->isActive() ? 'blue':'gray' }}-600 dark:text-{{ $subMenuItem->isActive() ? 'blue':'gray' }}-300 whitespace-nowrap py-1 group-[.sidebar-collapsed]/container:px-4 group-[.sidebar-collapsed]/container:py-2 group-[.inactive]/item:px-4 group-[.inactive]/item:py-2 hover:text-blue-600 dark:hover:bg-gray-950 sm:text-sm sm:group-[.sidebar-collapsed]/container:px-5 sm:group-[.sidebar-collapsed]/container:py-2.5 sm:group-[.inactive]/item:px-5 sm:group-[.inactive]/item:py-2.5"
+                                        class="{{ $subMenuItem->haveChildren() ? 'font-medium' : '' }} text-xs {{ $subMenuItem->isActive() ? 'text-arina-dark dark:text-arina-light' : 'text-gray-600 dark:text-gray-300' }} whitespace-nowrap py-1 group-[.sidebar-collapsed]/container:px-4 group-[.sidebar-collapsed]/container:py-2 group-[.inactive]/item:px-4 group-[.inactive]/item:py-2 hover:text-arina-dark dark:hover:text-arina-light dark:hover:bg-gray-950 sm:text-sm sm:group-[.sidebar-collapsed]/container:px-5 sm:group-[.sidebar-collapsed]/container:py-2.5 sm:group-[.inactive]/item:px-5 sm:group-[.inactive]/item:py-2.5"
                                     >
                                         {{ $subMenuItem->getName() }}
                                     </a>
@@ -198,7 +198,7 @@
                                             @foreach ($subMenuItem->getChildren() as $subSubMenuItem)
                                                 <a
                                                     href="{{ $subSubMenuItem->getUrl() }}"
-                                                    class="text-xs text-{{ $subSubMenuItem->isActive() ? 'blue':'gray' }}-600 dark:text-{{ $subSubMenuItem->isActive() ? 'blue':'gray' }}-300 whitespace-nowrap py-1 hover:text-blue-600 dark:hover:bg-gray-950 sm:text-sm"
+                                                    class="text-xs {{ $subSubMenuItem->isActive() ? 'text-arina-dark dark:text-arina-light' : 'text-gray-600 dark:text-gray-300' }} whitespace-nowrap py-1 hover:text-arina-dark dark:hover:text-arina-light dark:hover:bg-gray-950 sm:text-sm"
                                                 >
                                                     {{ $subSubMenuItem->getName() }}
                                                 </a>
@@ -222,7 +222,7 @@
                 <div class="group/item relative">
                     <a
                         href="{{ route('admin.help.index') }}"
-                        class="flex items-center gap-2 p-1.5 cursor-pointer hover:rounded-lg {{ $isHelpActive ? 'bg-blue-600 rounded-lg' : 'hover:bg-gray-100 hover:dark:bg-gray-950' }} sm:gap-2.5"
+                        class="flex items-center gap-2 p-1.5 cursor-pointer hover:rounded-lg {{ $isHelpActive ? 'bg-arina-dark rounded-lg shadow-sm' : 'hover:bg-gray-100 hover:dark:bg-gray-950' }} sm:gap-2.5"
                     >
                         <svg
                             class="h-5 w-5 shrink-0 {{ $isHelpActive ? 'text-white' : 'text-gray-600 dark:text-gray-300' }} sm:h-6 sm:w-6"
@@ -257,14 +257,17 @@
             <i class="icon-search absolute top-1.5 flex items-center text-xl ltr:left-2 rtl:right-2 sm:text-2xl sm:ltr:left-3 sm:rtl:right-3"></i>
 
             <input
+                id="admin-mega-search-input"
                 type="text"
-                class="peer block w-full rounded-lg border bg-white px-8 py-1.5 text-sm leading-6 text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400 sm:px-10 sm:text-base"
+                class="peer block w-full rounded-lg border bg-white px-8 py-1.5 text-sm leading-6 text-gray-600 transition-all hover:border-gray-400 focus:border-arina focus:ring-2 focus:ring-arina/20 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-arina sm:px-10 sm:text-base"
                 :class="{'border-gray-400': isDropdownOpen}"
                 placeholder="@lang('admin::app.components.layouts.header.mega-search.title')"
                 v-model.lazy="searchTerm"
                 @click="searchTerm.length >= 2 ? isDropdownOpen = true : {}"
                 v-debounce="500"
             >
+
+            <kbd class="pointer-events-none absolute hidden items-center rounded-md border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[11px] font-semibold text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500 ltr:right-3 rtl:left-3 sm:flex">⌘K</kbd>
 
             <div
                 class="absolute top-8 z-10 w-full rounded-lg border bg-white shadow-[0px_0px_0px_0px_rgba(0,0,0,0.10),0px_1px_3px_0px_rgba(0,0,0,0.10),0px_5px_5px_0px_rgba(0,0,0,0.09),0px_12px_7px_0px_rgba(0,0,0,0.05),0px_22px_9px_0px_rgba(0,0,0,0.01),0px_34px_9px_0px_rgba(0,0,0,0.00)] dark:border-gray-800 dark:bg-gray-900 sm:top-10"
@@ -274,7 +277,7 @@
                 <div class="flex border-b text-xs text-gray-600 dark:border-gray-800 dark:text-gray-300 sm:text-sm">
                     <div
                         class="cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-950 sm:p-4"
-                        :class="{ 'border-b-2 border-blue-600': activeTab == tab.key }"
+                        :class="{ 'border-b-2 border-arina-dark': activeTab == tab.key }"
                         v-for="tab in tabs"
                         @click="chooseTab(tab.key)"
                     >
@@ -339,7 +342,7 @@
                         <div class="flex border-t p-2 dark:border-gray-800 sm:p-3">
                             <a
                                 :href="'{{ route('admin.catalog.products.index') }}?search=:query'.replace(':query', searchTerm)"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-if="searchedResults.products.data.length"
                             >
                                 @{{ "@lang('admin::app.components.layouts.header.mega-search.explore-all-matching-products')".replace(':query', searchTerm).replace(':count', searchedResults.products.meta.total) }}
@@ -347,7 +350,7 @@
 
                             <a
                                 href="{{ route('admin.catalog.products.index') }}"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-else
                             >
                                 @lang('admin::app.components.layouts.header.mega-search.explore-all-products')
@@ -381,7 +384,7 @@
                         <div class="flex border-t p-2 dark:border-gray-800 sm:p-3">
                             <a
                                 :href="'{{ route('admin.sales.orders.index') }}?search=:query'.replace(':query', searchTerm)"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-if="searchedResults.orders.data.length"
                             >
                                 @{{ "@lang('admin::app.components.layouts.header.mega-search.explore-all-matching-orders')".replace(':query', searchTerm).replace(':count', searchedResults.orders.total) }}
@@ -389,7 +392,7 @@
 
                             <a
                                 href="{{ route('admin.sales.orders.index') }}"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-else
                             >
                                 @lang('admin::app.components.layouts.header.mega-search.explore-all-orders')
@@ -417,7 +420,7 @@
                         <div class="flex border-t p-2 dark:border-gray-800 sm:p-3">
                             <a
                                 :href="'{{ route('admin.catalog.categories.index') }}?search=:query'.replace(':query', searchTerm)"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-if="searchedResults.categories.data.length"
                             >
                                 @{{ "@lang('admin::app.components.layouts.header.mega-search.explore-all-matching-categories')".replace(':query', searchTerm).replace(':count', searchedResults.categories.total) }}
@@ -425,7 +428,7 @@
 
                             <a
                                 href="{{ route('admin.catalog.categories.index') }}"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-else
                             >
                                 @lang('admin::app.components.layouts.header.mega-search.explore-all-categories')
@@ -459,7 +462,7 @@
                         <div class="flex border-t p-2 dark:border-gray-800 sm:p-3">
                             <a
                                 :href="'{{ route('admin.customers.customers.index') }}?search=:query'.replace(':query', searchTerm)"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-if="searchedResults.customers.data.length"
                             >
                                 @{{ "@lang('admin::app.components.layouts.header.mega-search.explore-all-matching-customers')".replace(':query', searchTerm).replace(':count', searchedResults.customers.total) }}
@@ -467,7 +470,7 @@
 
                             <a
                                 href="{{ route('admin.customers.customers.index') }}"
-                                class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                                class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                                 v-else
                             >
                                 @lang('admin::app.components.layouts.header.mega-search.explore-all-customers')
@@ -679,7 +682,7 @@
                     </span>
 
                     <span
-                        class="absolute -top-2 flex h-5 min-w-5 cursor-pointer items-center justify-center rounded-full bg-blue-600 p-1.5 text-[10px] font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5"
+                        class="absolute -top-2 flex h-5 min-w-5 cursor-pointer items-center justify-center rounded-full bg-arina-dark p-1.5 text-[10px] font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5"
                         v-if="totalUnRead"
                     >
                         @{{ totalUnRead }}
@@ -728,13 +731,13 @@
                 <div class="flex h-[47px] justify-between gap-1.5 border-t px-6 py-4 dark:border-gray-800">
                     <a
                         href="{{ route('admin.notification.index') }}"
-                        class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                        class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                     >
                         @lang('admin::app.notifications.view-all')
                     </a>
 
                     <a
-                        class="cursor-pointer text-xs font-semibold text-blue-600 transition-all hover:underline"
+                        class="cursor-pointer text-xs font-semibold text-arina-dark transition-all hover:underline"
                         v-if="notifications?.length"
                         @click="readAll()"
                     >
@@ -808,7 +811,7 @@
                         return {
                             pending: 'icon-information rounded-full bg-amber-100 text-2xl text-amber-600 dark:!text-amber-600',
                             closed: 'icon-repeat rounded-full bg-red-100 text-2xl text-red-600 dark:!text-red-600',
-                            completed: 'icon-done rounded-full bg-blue-100 text-2xl text-blue-600 dark:!text-blue-600',
+                            completed: 'icon-done rounded-full bg-arina-light text-2xl text-arina-dark dark:!text-arina-light',
                             canceled: 'icon-cancel-1 rounded-full bg-red-100 text-2xl text-red-600 dark:!text-red-600',
                             processing: 'icon-sort-right rounded-full bg-green-100 text-2xl text-green-600 dark:!text-green-600',
                         };
@@ -914,6 +917,24 @@
                     return 0;
                 },
             },
+        });
+    </script>
+
+    <script>
+        window.addEventListener('keydown', (event) => {
+            const isShortcut = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k';
+
+            if (! isShortcut) {
+                return;
+            }
+
+            const searchInput = document.getElementById('admin-mega-search-input');
+
+            if (searchInput) {
+                event.preventDefault();
+
+                searchInput.focus();
+            }
         });
     </script>
 @endpushOnce

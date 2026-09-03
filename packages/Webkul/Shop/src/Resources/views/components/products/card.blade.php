@@ -11,10 +11,10 @@
     >
         <!-- Grid Card -->
         <div
-            class="1180:transtion-all group w-full rounded-md 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"
+            class="group w-full rounded-2xl border border-zinc-200 bg-white p-2.5 transition-all duration-300 hover:border-arina-border hover:shadow-[0_12px_30px_-12px_rgba(166,62,88,0.35)] 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden"
             v-if="mode != 'list'"
         >
-            <div class="relative max-h-[300px] max-w-[291px] overflow-hidden max-md:max-h-60 max-md:max-w-full max-md:rounded-lg max-sm:max-h-[200px] max-sm:max-w-full">
+            <div class="relative max-h-[300px] max-w-[291px] overflow-hidden rounded-2xl max-md:max-h-60 max-md:max-w-full max-md:rounded-lg max-sm:max-h-[200px] max-sm:max-w-full">
                 {!! view_render_event('bagisto.shop.components.products.card.image.before') !!}
 
                 <!-- Product Image -->
@@ -80,6 +80,14 @@
                         @lang('shop::app.components.products.card.new')
                     </p>
 
+                    <!-- Out Of Stock Ribbon -->
+                    <p
+                        class="absolute inset-x-0 top-1/2 -translate-y-1/2 bg-zinc-900/70 py-1.5 text-center text-sm font-semibold uppercase tracking-wide text-white"
+                        v-if="! product.is_saleable"
+                    >
+                        @lang('shop::app.components.products.card.out-of-stock')
+                    </p>
+
                     <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-lg:opacity-100 max-sm:opacity-100">
 
                         {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.before') !!}
@@ -90,7 +98,7 @@
                                 role="button"
                                 aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
                                 tabindex="0"
-                                :class="product.is_wishlist ? 'icon-heart-fill text-red-500' : 'icon-heart'"
+                                :class="product.is_wishlist ? 'icon-heart-fill text-arina-dark' : 'icon-heart'"
                                 @click="addToWishlist()"
                             >
                             </span>
@@ -127,6 +135,23 @@
                 </p>
 
                 {!! view_render_event('bagisto.shop.components.products.card.name.after') !!}
+
+                <!-- Stock Urgency -->
+                <p
+                    class="flex items-center gap-1.5 text-xs font-semibold text-amber-700"
+                    v-if="product.is_saleable && product.quantity > 0 && product.quantity <= 9"
+                >
+                    <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500"></span>
+
+                    @{{ "@lang('shop::app.components.products.card.only-left')".replace(':count', product.quantity) }}
+                </p>
+
+                <!-- Free Shipping Hint -->
+                <p class="flex items-center gap-1.5 text-xs font-medium text-emerald-700">
+                    <span class="icon-truck text-base"></span>
+
+                    @lang('shop::app.components.products.card.free-shipping')
+                </p>
 
                 <!-- Pricing -->
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}

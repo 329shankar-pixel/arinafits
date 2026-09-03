@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Articol adăugat cu succes în lista de comparare.',
                 'add-to-wishlist' => 'Adaugă în lista de dorințe',
                 'already-in-compare' => 'Articolul este deja adăugat în lista de comparare.',
+                'free-shipping' => 'Livrare gratuită',
                 'new' => 'Nou',
+                'only-left' => 'Au mai rămas :count',
+                'out-of-stock' => 'Stoc epuizat',
                 'review-description' => 'Fii primul care recenzează acest produs',
                 'sale' => 'Reducere',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Descarcă aplicația',
+                'subtitle' => 'Oferte exclusive în aplicație, plată mai rapidă și urmărirea comenzilor.',
+                'title' => 'Arina în buzunarul tău',
+            ],
             'categories-carousel' => 'Carusel categorii',
             'image-carousel' => 'Carusel imagini',
             'offer' => 'Obțineți până la 40% REDUCERE la prima comandă CUMPĂRĂ ACUM',
             'product-carousel' => 'Carusel produse',
             'resend-verify-email' => 'Retrimite e-mailul de verificare',
+            'shop-now' => 'Cumpără acum',
             'verify-email' => 'Verificați contul de e-mail',
         ],
 

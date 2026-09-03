@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'アイテムが比較リストに追加されました。',
                 'add-to-wishlist' => 'ウィッシュリストに追加',
                 'already-in-compare' => 'アイテムはすでに比較リストに追加されています。',
+                'free-shipping' => '送料無料',
                 'new' => '新着',
+                'only-left' => '残り:count点',
+                'out-of-stock' => '在庫切れ',
                 'review-description' => 'この製品の最初のレビュアになる',
                 'sale' => 'セール',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'アプリを入手',
+                'subtitle' => 'アプリ限定オファー、高速チェックアウト、注文追跡。',
+                'title' => 'ポケットの中のアリナ',
+            ],
             'categories-carousel' => 'カテゴリカルーセル',
             'image-carousel' => '画像カルーセル',
             'offer' => '初回注文で最大40%オフ、今すぐ購入',
             'product-carousel' => '商品カルーセル',
             'resend-verify-email' => '確認メールを再送信',
+            'shop-now' => '今すぐ購入',
             'verify-email' => 'メールアカウントを確認してください',
         ],
 

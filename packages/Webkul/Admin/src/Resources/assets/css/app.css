@@ -12,7 +12,11 @@
 
 @layer components {
     ::selection {
-        @apply bg-darkBlue/20;
+        @apply bg-arina/20;
+    }
+
+    :focus-visible {
+        @apply outline-none ring-2 ring-arina/60 ring-offset-1;
     }
 
     body {

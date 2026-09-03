@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Ürün karşılaştırma listesine eklendi.',
                 'add-to-wishlist' => 'Dilek Listesine Ekle',
                 'already-in-compare' => 'Ürün zaten karşılaştırma listesinde.',
+                'free-shipping' => 'Ücretsiz kargo',
                 'new' => 'Yeni',
+                'only-left' => 'Son :count adet',
+                'out-of-stock' => 'Tükendi',
                 'review-description' => 'İlk yorumu siz yapın',
                 'sale' => 'İndirim',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Uygulamayı indir',
+                'subtitle' => 'Uygulamaya özel fırsatlar, hızlı ödeme ve sipariş takibi.',
+                'title' => 'Arina cebinizde',
+            ],
             'categories-carousel' => 'Kategoriler',
             'image-carousel' => 'Görseller',
             'offer' => 'İlk siparişe özel %40 indirim fırsatı!',
             'product-carousel' => 'Ürünler',
             'resend-verify-email' => 'Doğrulama e-postasını tekrar gönder',
+            'shop-now' => 'Hemen Al',
             'verify-email' => 'E-posta adresinizi doğrulayın',
         ],
 

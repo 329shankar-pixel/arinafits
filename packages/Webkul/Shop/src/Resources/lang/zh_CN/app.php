@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => '商品已成功添加到比较列表。',
                 'add-to-wishlist' => '添加到愿望清单',
                 'already-in-compare' => '商品已经在比较列表中。',
+                'free-shipping' => '免费送货',
                 'new' => '新品',
+                'only-left' => '仅剩 :count 件',
+                'out-of-stock' => '缺货',
                 'review-description' => '成为第一个评价这个产品的人',
                 'sale' => '特卖',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => '获取应用',
+                'subtitle' => '应用专享优惠、快速结账和订单跟踪。',
+                'title' => '口袋里的 Arina',
+            ],
             'categories-carousel' => '分类轮播',
             'image-carousel' => '图片轮播',
             'offer' => '首单最高可享40%折扣，立即购买',
             'product-carousel' => '产品轮播',
             'resend-verify-email' => '重新发送验证邮件',
+            'shop-now' => '立即购买',
             'verify-email' => '验证您的邮箱账户',
         ],
 

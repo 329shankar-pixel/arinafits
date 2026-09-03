@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Item added successfully to compare list.',
                 'add-to-wishlist' => 'Add To Wishlist',
                 'already-in-compare' => 'Item is already added to compare list.',
+                'free-shipping' => 'Free Shipping',
                 'new' => 'New',
+                'only-left' => 'Only :count left',
+                'out-of-stock' => 'Out of Stock',
                 'review-description' => 'Be the first to review this product',
                 'sale' => 'Sale',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Get the App',
+                'subtitle' => 'App-only drops, faster checkout and order tracking on the go.',
+                'title' => 'Arina in your pocket',
+            ],
             'categories-carousel' => 'Categories Carousel',
             'image-carousel' => 'Image Carousel',
             'offer' => 'Get UPTO 40% OFF on your 1st order SHOP NOW',
             'product-carousel' => 'Product Carousel',
             'resend-verify-email' => 'Resend Verification Email',
+            'shop-now' => 'Shop Now',
             'verify-email' => 'Verify your email account',
         ],
 

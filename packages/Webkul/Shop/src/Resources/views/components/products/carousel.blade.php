@@ -15,10 +15,15 @@
             class="container mt-20 max-lg:px-8 max-md:mt-8 max-sm:mt-7 max-sm:!px-4"
             v-if="! isLoading && products.length"
         >
+            <div class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-[0_10px_40px_-18px_rgba(0,0,0,0.15)] max-sm:rounded-2xl max-sm:p-4">
             <div class="flex justify-between">
-                <h2 class="font-dmserif text-3xl max-md:text-2xl max-sm:text-xl">
-                    @{{ title }}
-                </h2>
+                <div>
+                    <span class="mb-3 block h-1 w-14 rounded-full bg-arina/70"></span>
+
+                    <h2 class="font-dmserif text-3xl max-md:text-2xl max-sm:text-xl">
+                        @{{ title }}
+                    </h2>
+                </div>
 
                 <div class="flex items-center justify-between gap-8">
                     <a
@@ -26,7 +31,7 @@
                         class="hidden max-lg:flex"
                         v-if="navigationLink"
                     >
-                        <p class="items-center text-xl max-md:text-base max-sm:text-sm">
+                        <p class="items-center text-xl underline-offset-4 transition-colors hover:text-navyBlue hover:underline max-md:text-base max-sm:text-sm">
                             @lang('shop::app.components.products.carousel.view-all')
 
                             <span class="icon-arrow-right text-2xl max-md:text-lg max-sm:text-sm"></span>
@@ -75,6 +80,7 @@
             >
                 @lang('shop::app.components.products.carousel.view-all')
             </a>
+            </div>
         </div>
 
         <!-- Product Card Listing -->

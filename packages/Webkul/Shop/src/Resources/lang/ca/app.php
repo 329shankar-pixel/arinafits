@@ -737,7 +737,10 @@ return [
                 'add-to-compare-success' => 'Element afegit correctament a la llista de comparació.',
                 'add-to-wishlist' => 'Afegir a la llista de desitjos',
                 'already-in-compare' => 'L\'element ja està afegit a la llista de comparació.',
+                'free-shipping' => 'Enviament gratuït',
                 'new' => 'Nou',
+                'only-left' => 'Només en queden :count',
+                'out-of-stock' => 'Esgotat',
                 'review-description' => 'Sigues el primer a revisar aquest producte',
                 'sale' => 'Oferta',
             ],
@@ -1264,11 +1267,17 @@ return [
         ],
 
         'index' => [
+            'app-strip' => [
+                'button' => 'Descarrega l\'app',
+                'subtitle' => 'Novetats exclusives de l\'app, pagament més ràpid i seguiment de comandes.',
+                'title' => 'Arina a la butxaca',
+            ],
             'categories-carousel' => 'Carrusel de Categories',
             'image-carousel' => 'Carrusel d\'Imatges',
             'offer' => 'Obté FINS A un 40% de DESCOMPTE en la teva primera comanda COMPRA ARA',
             'product-carousel' => 'Carrusel de Productes',
             'resend-verify-email' => 'Reenviar Correu de Verificació',
+            'shop-now' => 'Compra ara',
             'verify-email' => 'Verifica el teu compte de correu electrònic',
         ],
 
