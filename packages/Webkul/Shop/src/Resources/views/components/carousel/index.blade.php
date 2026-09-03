@@ -6,15 +6,13 @@
     $firstImage = data_get($carouselImages, '0.image');
 
     $firstImageTitle = data_get($carouselImages, '0.title');
+
+    $firstImageLink = data_get($carouselImages, '0.link');
+
+    $totalSlides = count($carouselImages);
 @endphp
 
 @if ($firstImage)
-    {{--
-        Preload the LCP image in <head> so the browser starts fetching it
-        before HTML parse reaches the <img> tag. Directly targets the LCP
-        "resource load delay" subpart Lighthouse reports as the biggest
-        contributor on this page.
-    --}}
     @push('meta')
         <link
             rel="preload"
@@ -27,58 +25,82 @@
     @endpush
 @endif
 
-<div class="px-[60px] pt-4 max-1180:px-8 max-sm:px-4 max-sm:pt-3">
+<section class="relative h-[86svh] max-h-[900px] min-h-[540px] w-full overflow-hidden bg-zinc-950 max-sm:min-h-[500px]">
 <v-carousel :images="{{ json_encode($carouselImages) }}">
-    <div class="overflow-hidden rounded-[24px] shadow-[0_24px_60px_-24px_rgba(166,62,88,0.45)] ring-1 ring-black/5 max-sm:rounded-2xl">
-        @if ($firstImage)
-            {{--
-                Server-rendered first slide so the browser can discover and
-                fetch the LCP image immediately, before Vue mounts the
-                carousel. `sizes="100vw"` declares the actual rendered width
-                (the img has `w-screen`) so the browser picks the smallest
-                srcset variant that satisfies viewport_px × DPR — mobile
-                412 × 1.75 ≈ 721 → 768w small variant. The inline `style`
-                supplies width/aspect-ratio so the LCP element can paint
-                before the Tailwind CSS bundle finishes parsing on slow
-                mobile CPU.
-            --}}
+    @if ($firstImage)
+        <div class="absolute inset-0">
             <img
                 src="{{ $firstImage }}"
                 srcset="{{ $firstImage }} 1920w, {{ str_replace('storage', 'cache/large', $firstImage) }} 1280w, {{ str_replace('storage', 'cache/medium', $firstImage) }} 1024w, {{ str_replace('storage', 'cache/small', $firstImage) }} 768w"
                 sizes="100vw"
-                class="aspect-[21/9] max-h-screen w-full select-none object-cover"
-                style="width:100%;aspect-ratio:21/9;max-height:100vh;object-fit:cover;display:block"
+                class="absolute inset-0 h-full w-full object-cover"
+                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"
                 alt="{{ $firstImageTitle ?? trans('shop::app.home.index.image-carousel') }}"
                 fetchpriority="high"
                 decoding="sync"
             >
-        @else
-            <div class="shimmer aspect-[21/9] max-h-screen w-full"></div>
-        @endif
-    </div>
+
+            <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/60 via-zinc-950/10 to-transparent"></div>
+
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/25 to-transparent pb-14 pt-28 max-sm:pb-10"></div>
+
+            <div class="absolute inset-x-0 bottom-0 pb-14 max-sm:pb-10">
+                <div class="px-[60px] max-1180:px-8 max-sm:px-4">
+                    <p class="mb-4 flex items-baseline gap-2 text-white">
+                        <span class="font-dmserif text-5xl leading-none max-sm:text-4xl">01</span>
+
+                        <span class="text-sm font-medium tracking-[0.3em] text-white/70">/ {{ str_pad($totalSlides, 2, '0', STR_PAD_LEFT) }}</span>
+                    </p>
+
+                    @if ($firstImageTitle)
+                        <h2 class="font-dmserif max-w-3xl text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.02] text-white drop-shadow-xl">
+                            {{ $firstImageTitle }}
+                        </h2>
+                    @endif
+
+                    @if ($firstImageLink)
+                        <a
+                            href="{{ $firstImageLink }}"
+                            class="mt-7 inline-flex items-center gap-2.5 rounded-full bg-white py-3.5 pl-7 pr-6 text-sm font-semibold text-zinc-950 shadow-2xl transition-all duration-300 hover:gap-3.5 hover:bg-zinc-100 max-sm:mt-5 max-sm:py-3 max-sm:pl-6"
+                        >
+                            @lang('shop::app.home.index.shop-now')
+
+                            <span class="icon-arrow-right text-base leading-none"></span>
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="shimmer absolute inset-0"></div>
+    @endif
 </v-carousel>
-</div>
+</section>
 
 @pushOnce('scripts')
     <script
         type="text/x-template"
         id="v-carousel-template"
     >
-        <div class="relative m-auto flex w-full overflow-hidden rounded-[24px] shadow-[0_24px_60px_-24px_rgba(166,62,88,0.45)] ring-1 ring-black/5 max-sm:rounded-2xl">
-            <!-- Slider -->
+        <div
+            class="relative h-full w-full overflow-hidden"
+            @mouseenter="pauseAutoplay"
+            @mouseleave="resumeAutoplay"
+        >
+            <!-- Slides -->
             <div
-                class="inline-flex translate-x-0 cursor-pointer transition-transform duration-700 ease-out will-change-transform"
+                class="inline-flex h-full translate-x-0 cursor-pointer transition-transform duration-700 ease-out will-change-transform"
                 ref="sliderContainer"
             >
                 <div
-                    class="relative max-h-screen w-full bg-cover bg-no-repeat"
+                    class="relative h-full w-full shrink-0"
                     v-for="(image, index) in images"
                     :key="index"
                     @click="visitLink(image)"
                     ref="slide"
                 >
                     <x-shop::media.images.lazy
-                        class="aspect-[21/9] max-h-full w-full max-w-full select-none transition-transform duration-300 ease-in-out will-change-transform"
+                        class="absolute inset-0 h-full w-full select-none object-cover transition-transform duration-300 ease-in-out will-change-transform"
                         ::class="{ 'hero-ken-burns': index === Math.abs(currentIndex) }"
                         ::lazy="index === 0 ? false : true"
                         ::src="image.image"
@@ -90,63 +112,105 @@
                         ::decoding="index === 0 ? 'sync' : 'async'"
                     />
 
-                    <div
-                        class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-950/70 via-zinc-950/25 to-transparent px-8 pb-10 pt-20 max-sm:px-5 max-sm:pb-8 max-sm:pt-14"
-                        v-if="image.title"
-                    >
-                        <p
-                            class="font-dmserif max-w-2xl text-4xl text-white drop-shadow-lg line-clamp-2 max-md:text-3xl max-sm:text-2xl"
-                            v-text="image.title"
-                        >
-                        </p>
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-zinc-950/60 via-zinc-950/10 to-transparent"></div>
+
+                    <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/25 to-transparent pb-14 pt-28 max-sm:pb-10"></div>
+
+                    <div class="absolute inset-x-0 bottom-0 pb-14 max-sm:pb-10">
+                        <div class="px-[60px] max-1180:px-8 max-sm:px-4">
+                            <p class="mb-4 flex items-baseline gap-2 text-white">
+                                <span
+                                    class="font-dmserif text-5xl leading-none max-sm:text-4xl"
+                                    v-text="String(Math.abs(currentIndex) + 1).padStart(2, '0')"
+                                ></span>
+
+                                <span
+                                    class="text-sm font-medium tracking-[0.3em] text-white/70"
+                                    v-text="'/ ' + String(images.length).padStart(2, '0')"
+                                ></span>
+                            </p>
+
+                            <h2
+                                class="font-dmserif max-w-3xl text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.02] text-white drop-shadow-xl"
+                                v-if="image.title"
+                                v-text="image.title"
+                            ></h2>
+
+                            <a
+                                v-if="image.link"
+                                :href="image.link"
+                                @click.stop
+                                class="mt-7 inline-flex items-center gap-2.5 rounded-full bg-white py-3.5 pl-7 pr-6 text-sm font-semibold text-zinc-950 shadow-2xl transition-all duration-300 hover:gap-3.5 hover:bg-zinc-100 max-sm:mt-5 max-sm:py-3 max-sm:pl-6"
+                            >
+                                @lang('shop::app.home.index.shop-now')
+
+                                <span class="icon-arrow-right text-base leading-none"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Navigation -->
-            <span
-                class="icon-arrow-left absolute left-4 top-1/2 -mt-[22px] hidden w-auto rounded-full bg-white/85 p-3 text-2xl font-bold text-arina-deep opacity-70 shadow-lg backdrop-blur-md transition-all hover:opacity-100 md:inline-block"
-                :class="{
-                    'cursor-not-allowed': direction == 'ltr' && currentIndex == 0,
-                    'cursor-pointer hover:opacity-100': direction == 'ltr' ? currentIndex > 0 : currentIndex <= 0
-                }"
-                role="button"
-                aria-label="@lang('shop::components.carousel.previous')"
-                tabindex="0"
+            <!-- Story progress segments -->
+            <div
+                class="absolute inset-x-0 top-0 z-10 px-[60px] pt-5 max-1180:px-8 max-sm:px-4 max-sm:pt-4"
                 v-if="images?.length >= 2"
-                @click="navigate('prev')"
             >
-            </span>
+                <div class="flex gap-2">
+                    <div
+                        v-for="(image, index) in images"
+                        :key="'segment-' + index"
+                        class="h-[3px] flex-1 cursor-pointer overflow-hidden rounded-full bg-white/25 backdrop-blur-sm"
+                        role="button"
+                        tabindex="0"
+                        :aria-label="'Go to slide ' + (index + 1)"
+                        @click="navigateByPagination(index)"
+                        @keydown.enter="navigateByPagination(index)"
+                        @keydown.space.prevent="navigateByPagination(index)"
+                    >
+                        <span
+                            v-if="index < Math.abs(currentIndex)"
+                            class="block h-full w-full bg-white"
+                        ></span>
 
-            <span
-                class="icon-arrow-right absolute right-4 top-1/2 -mt-[22px] hidden w-auto rounded-full bg-white/85 p-3 text-2xl font-bold text-arina-deep opacity-70 shadow-lg backdrop-blur-md transition-all hover:opacity-100 md:inline-block"
-                :class="{
-                    'cursor-not-allowed': direction == 'rtl' && currentIndex == 0,
-                    'cursor-pointer hover:opacity-100': direction == 'rtl' ? currentIndex < 0 : currentIndex >= 0
-                }"
-                role="button"
-                aria-label="@lang('shop::components.carousel.next')"
-                tabindex="0"
-                v-if="images?.length >= 2"
-                @click="navigate('next')"
-            >
-            </span>
-
-            <!-- Pagination -->
-            <div class="absolute bottom-5 left-0 flex w-full justify-center gap-2 max-md:bottom-3.5 max-sm:bottom-2.5">
-                <div
-                    v-for="(image, index) in images"
-                    :key="index"
-                    class="h-2 cursor-pointer rounded-full shadow ring-1 ring-black/10 transition-all duration-300 focus:outline-none"
-                    :class="{ 'w-8 bg-white': index === Math.abs(currentIndex), 'w-2 bg-white/50 hover:bg-white/80': index !== Math.abs(currentIndex) }"
-                    role="button"
-                    tabindex="0"
-                    :aria-label="'Go to slide ' + (index + 1)"
-                    @click="navigateByPagination(index)"
-                    @keydown.enter="navigateByPagination(index)"
-                    @keydown.space.prevent="navigateByPagination(index)"
-                >
+                        <span
+                            v-else-if="index === Math.abs(currentIndex)"
+                            :key="Math.abs(currentIndex) + '-' + cycle"
+                            class="hero-progress-fill block h-full w-full bg-white"
+                            :style="{ 'animation-play-state': isPaused ? 'paused' : 'running' }"
+                        ></span>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Glass arrows -->
+            <div
+                class="absolute bottom-14 right-[60px] z-10 hidden gap-3 md:flex max-1180:right-8"
+                v-if="images?.length >= 2"
+            >
+                <span
+                    class="icon-arrow-left cursor-pointer rounded-full bg-white/15 p-3.5 text-xl text-white ring-1 ring-white/30 backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-zinc-950"
+                    :class="{ 'cursor-not-allowed opacity-40': direction == 'ltr' && currentIndex == 0 }"
+                    role="button"
+                    aria-label="@lang('shop::components.carousel.previous')"
+                    tabindex="0"
+                    @click="navigate('prev')"
+                    @keydown.enter="navigate('prev')"
+                    @keydown.space.prevent="navigate('prev')"
+                >
+                </span>
+
+                <span
+                    class="icon-arrow-right cursor-pointer rounded-full bg-white/15 p-3.5 text-xl text-white ring-1 ring-white/30 backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-zinc-950"
+                    :class="{ 'cursor-not-allowed opacity-40': direction == 'rtl' && currentIndex == 0 }"
+                    role="button"
+                    aria-label="@lang('shop::components.carousel.next')"
+                    tabindex="0"
+                    @click="navigate('next')"
+                    @keydown.enter="navigate('next')"
+                    @keydown.space.prevent="navigate('next')"
+                >
+                </span>
             </div>
         </div>
     </script>
@@ -170,6 +234,9 @@
                     autoPlayInterval: null,
                     direction: 'ltr',
                     startFrom: 1,
+                    cycle: 0,
+                    isPaused: false,
+                    autoPlayDelay: 5000,
                 };
             },
 
@@ -364,14 +431,28 @@
                     this.play();
                 },
 
+                pauseAutoplay() {
+                    this.isPaused = true;
+
+                    clearInterval(this.autoPlayInterval);
+                },
+
+                resumeAutoplay() {
+                    this.isPaused = false;
+
+                    this.play();
+                },
+
                 play() {
                     clearInterval(this.autoPlayInterval);
+
+                    this.cycle += 1;
 
                     this.autoPlayInterval = setInterval(() => {
                         this.currentIndex = (this.currentIndex + this.startFrom) % this.images.length;
 
                         this.setPositionByIndex();
-                    }, 5000);
+                    }, this.autoPlayDelay);
                 },
 
                 cleanup() {
