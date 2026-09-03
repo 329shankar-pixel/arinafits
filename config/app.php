@@ -68,6 +68,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Force HTTPS Scheme
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, all generated URLs (assets, storage images, favicons)
+    | use the https scheme. Shared hosting often terminates TLS at a
+    | proxy while the app sees plain http, which produces mixed-content
+    | warnings and blocked images. HTTPS is always forced in production.
+    |
+    */
+
+    'force_https' => env('FORCE_HTTPS', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Admin URL
     |--------------------------------------------------------------------------
     |
