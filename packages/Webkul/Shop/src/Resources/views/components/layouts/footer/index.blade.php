@@ -133,8 +133,6 @@
         <p class="text-sm text-zinc-600 max-md:text-center">
             @if (core()->getConfigData('general.content.footer.copyright_content'))
                 {!! core()->getConfigData('general.content.footer.copyright_content') !!}
-            @else
-                @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
             @endif
         </p>
 

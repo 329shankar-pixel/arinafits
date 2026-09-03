@@ -147,9 +147,5 @@
             {!! view_render_event('bagisto.shop.customers.reset_password.after') !!}
 
         </div>
-
-        <p class="mb-4 mt-8 text-center text-xs text-zinc-500">
-            @lang('shop::app.customers.reset-password.footer', ['current_year'=> date('Y') ])
-        </p>
     </div>
 </x-shop::layouts>
